@@ -1,17 +1,23 @@
-const express = require('express')
+const express = require("express")
 const app = express()
 const port = 3000
 
+const logMiddleware = function(req, res, next) {
+    console.log("API recebeu alguma informação")
+
+    next()
+}
+
+app.use(express.static("./site"))
+
+app.use(logMiddleware)
+
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send("Hello World!")
 })
 
 app.get('/pt', (req, res) => {
-    res.send('Olá Mundo!')
-})
-
-app.post("/post", function (req, res) {
-    res.send({ status: "OK" })
+    res.send("Olá Mundo!")
 })
 
 app.listen(port, () => {
